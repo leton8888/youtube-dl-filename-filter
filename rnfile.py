@@ -1,10 +1,15 @@
 import os
 import re
+import fnmatch
 
-for filename in os.listdir("."):
-	old_name = filename
-	filename = re.sub('\#','',filename)
-	filename = re.sub('\&','',filename)
-	print old_name+":"+filename
-	os.rename(old_name, filename)
+directory = "/var/www/html/yd/download"
+for file in os.listdir(directory):
+	if fnmatch.fnmatch(file, '*'):
+		path = os.path.join(directory, file)
+		old_name = file
+		file = re.sub('\#','',file)
+		file = re.sub('\&','',file)
+		target = os.path.join(directory, file)
+		os.rename(path, target)
+
 
